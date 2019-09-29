@@ -1,13 +1,15 @@
-package com.example.cornel.demo.statemachine;
+package com.example.test.fork.statemachine;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
+import java.util.Collections;
+
+@EntityScan(basePackages = {"com.example.test.fork"})
 @SpringBootApplication
-@ComponentScan("com.example")
 public class Application implements CommandLineRunner {
 
 
@@ -16,14 +18,16 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        workflow.init();
-
-
-
+        workflow.start();
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+
+        SpringApplication app = new SpringApplication(Application.class);
+
+        app.setDefaultProperties(Collections
+                .singletonMap("server.port", "8083"));
+        app.run(args);
     }
 
 }

@@ -1,0 +1,11 @@
+version: '2'
+services:
+  db:
+    image: postgres:alpine
+    ports:
+    - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_DB: test
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_pass
